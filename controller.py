@@ -11,7 +11,7 @@ def proccess(action_list,cache):
 def hit(action,memory_address,cache):
 	set_index = math.floor(memory_address/cache.block_size)%cache.set_count 
 	tag = math.floor(memory_address/(cache.cache_size/cache.n_way))
-	#print(set_index)
+	print(tag)
 	#if it is a cache hit
 	if cache.cache[set_index].search_hit(tag):
 		cache.total_hit = cache.total_hit+1
