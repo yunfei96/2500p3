@@ -4,6 +4,8 @@ import cache_set
 def proccess(action_list,cache):
 	for i in action_list:
 		h = hit(i[0],i[1],cache)
+	for i in cache.cache:
+		cache.mem_write = cache.mem_write + i.release_dirty()
 	print(cache.total_hit/len(action_list))
 	print(cache.mem_read)
 	print(cache.mem_write)

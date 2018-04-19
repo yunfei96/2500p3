@@ -11,8 +11,6 @@ class cache_set:
 			i = i+1
 
 	def search_hit(self,tag):
-		print (self.set_data[0][1].tag, end = " ")
-		print (self.set_data[1][1].tag, end = "\n")
 		self.increment()
 		for item in self.set_data:
 			if item[1].tag == tag and item[1].valid == 1:
@@ -52,14 +50,15 @@ class cache_set:
 				item[0] = item[0]+1
 	def set_dirty(self,tag):
 		for item in self.set_data:
-			if item[1].tag == tag:
+			if item[1].tag == tag and item[1].valid == 1:
 				item[1].dirty = 1
 				return True
 		return False
 
-	def check_dirty(self,tag):
+	def release_dirty(self):
+		s = 0
 		for item in self.set_data:
-			if item[1].tag == tag:
-				if item[1].dirty == 1:
-					return True
-		return False
+			if item[1].valid == 1 and item[1].dirty == 1:
+				s = s+self.block_size
+				item[1].dirty = 0
+		return s
