@@ -6,14 +6,18 @@ def proccess(action_list,cache):
 		h = hit(i[0],i[1],cache)
 	for i in cache.cache:
 		cache.mem_write = cache.mem_write + i.release_dirty()
-	print(cache.total_hit/len(action_list))
-	print(cache.mem_read)
+	print (cache.cache_size, end = '	')
+	print (cache.block_size, end = '	')
+	print (cache.n, end = '	')
+	print (cache.write, end = '	')
+	print(cache.total_hit/len(action_list), end = '	' )
+	print(cache.mem_read, end = '	')
 	print(cache.mem_write)
 
 def hit(action,memory_address,cache):
 	set_index = math.floor(memory_address/cache.block_size)%cache.set_count 
 	tag = math.floor(memory_address/(cache.cache_size/cache.n_way))
-	print(tag)
+	#print(tag)
 	#if it is a cache hit
 	if cache.cache[set_index].search_hit(tag):
 		cache.total_hit = cache.total_hit+1
