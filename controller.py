@@ -1,18 +1,19 @@
 import math
 import cache_set
 #------below is controller
-def proccess(action_list,cache):
+def proccess(action_list,cache,file):
 	for i in action_list:
 		h = hit(i[0],i[1],cache)
 	for i in cache.cache:
 		cache.mem_write = cache.mem_write + i.release_dirty()
-	print (cache.cache_size, end = '	')
-	print (cache.block_size, end = '	')
-	print (cache.n, end = '	')
-	print (cache.write, end = '	')
-	print(cache.total_hit/len(action_list), end = '	' )
-	print(cache.mem_read, end = '	')
-	print(cache.mem_write)
+	file.write(str(cache.cache_size)+ '	'
+		+ str(cache.block_size)+'	'
+		+ str(cache.n)+'	'
+		+ str(cache.write)+ '	'
+		+ str(round(cache.total_hit/len(action_list),2))+'	' 
+		+ str(cache.mem_read)+'	'
+		+ str(cache.mem_write)
+		+ '\n')
 
 def hit(action,memory_address,cache):
 	set_index = math.floor(memory_address/cache.block_size)%cache.set_count 

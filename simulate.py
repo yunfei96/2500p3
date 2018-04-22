@@ -1,7 +1,9 @@
 import cache
 import controller
 
-f = open("test2.trace","r")
+name = "test1.trace"
+f = open(name,"r")
+file = open("test.result","w")
 #-----read input file
 action_list = []
 for line in f:
@@ -29,4 +31,6 @@ for cache_size in cache_size_list:
 					n_way = 4
 				set_count = int (int(cache_size/block_size)/n_way)
 				simulate_cache = cache.cache(set_count,block_size,cache_size, write, n_way, n)
-				controller.proccess(action_list,simulate_cache)
+				controller.proccess(action_list,simulate_cache, file)
+file.close()
+f.close()
